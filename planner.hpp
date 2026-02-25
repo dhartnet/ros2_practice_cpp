@@ -33,6 +33,8 @@ class Planner {
         return length;
     }
 
+    // ADD SPLINE SMOOTHING FUNCTION HERE LATER - take in final vector of states and spline to time-coincident locations
+
     // virtual function to print stats about the pathfinding result, can be overridden by derived classes for custom behavior
     virtual void printStats(const std::vector<State>& path, double time_ms, size_t nodes_explored) {
         RCLCPP_INFO(rclcpp::get_logger("planner"),

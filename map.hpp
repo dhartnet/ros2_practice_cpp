@@ -55,14 +55,6 @@ class Map {
         }
     }
 
-    // check if a cell is occupied
-    bool isOccupied(int x, int y) {
-      if (x >= 0 && x < width_ && y >= 0 && y < height_) {
-        return grid_[y * width_ + x] == 100;
-      }
-      return false; // Out of bounds
-    }
-
     // World coords (meters) → grid cell
     std::pair<int,int> worldToGrid(double x, double y) const {
         int col = static_cast<int>(x / resolution_);
@@ -85,6 +77,14 @@ class Map {
       msg.info.origin.position.y = 0.0;
       msg.data = grid_;
       map_pub_->publish(msg);
+    }
+
+    bool outOfBounds(int x, int y) const {
+      return x < 0 || x >= width_ || y < 0 || y >= height_;
+    }
+    
+    bool inObstacle(int x, int y) const {
+      return !outOfBounds(x, y) && grid_[y * width_ + x] == 100;
     }
 
     int getWidth() const { return width_; }
